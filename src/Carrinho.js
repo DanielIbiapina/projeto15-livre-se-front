@@ -4,6 +4,7 @@ export default function Carrinho(props) {
     const {ativado, setAtivado} = props
     return (
         <>
+            <FundoTransparente></FundoTransparente>
             <Aside>
                 <TopBar>
                     <Icon><ion-icon name="cart-outline"></ion-icon></Icon>
@@ -18,6 +19,15 @@ export default function Carrinho(props) {
     );
 }
 
+const FundoTransparente = styled.div`
+position: fixed;
+top: 0;
+left: 0;
+width: 100vmax;
+height: 100vmax;
+background-color: rgba(0, 0, 0, 0.5);
+z-index: 2;
+`
 const Aside = styled.aside`
 position: fixed;
 width: 200px;
