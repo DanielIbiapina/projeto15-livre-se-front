@@ -3,6 +3,7 @@ import Cadastro from "./Cadastro";
 import Login from "./Login";
 import { useState, useNavigate, useEffect } from "react";
 import Home from "./Home";
+import Carrinho from "./Carrinho";
 
 
 export default function App() {

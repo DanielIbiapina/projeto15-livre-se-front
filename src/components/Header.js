@@ -1,9 +1,9 @@
 import { useState } from "react";
 import styled from "styled-components";
 
-export default function Header() {
+export default function Header(props) {
     const [pesquisa, setPesquisa] = useState('');
-
+    const {ativado, setAtivado} = props
     return (
         <HeaderContainer>
             <IconContainer>
@@ -11,7 +11,7 @@ export default function Header() {
                 <Logo>SEBOOK</Logo>
                 <MiniContainer>
                     <Icon><ion-icon name="person-outline"></ion-icon></Icon>
-                    <Icon><ion-icon name="cart-outline"></ion-icon></Icon>
+                    <Icon onClick={() => setAtivado(!ativado)}><ion-icon name="cart-outline"></ion-icon></Icon>
                 </MiniContainer>
             </IconContainer>
             <InputSearchBar
