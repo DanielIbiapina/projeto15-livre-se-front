@@ -48,7 +48,9 @@ console.log(token)
             <Routes>
             <Route path="/"  element={ <Home/> } />
             <Route path="/cadastro" element={<Cadastro/>} />
+            <Route path="/login" element={<Login />} />
             <Route path="/home" element={<Home/>} />
+           
             </Routes>
         </BrowserRouter>
         //</Contexto.Provider>
