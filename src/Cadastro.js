@@ -32,28 +32,28 @@ export default function Cadastro() {
   return (
     <SignUp>
     <GlobalStyle />
-      <h1>Criar cadastro</h1>
-      <form onSubmit={sendData}>
-        <label htmlFor="name">Nome completo</label>
-        <input
+      <Header>Criar cadastro</Header>
+      <Form onSubmit={sendData}>
+        <Label htmlFor="name">Nome completo</Label>
+        <Input
           id="name"
           type="text"
           onChange={(e) => setName(e.target.value)}
-        ></input>
-        <label htmlFor="email">E-mail</label>
-        <input
+        ></Input>
+        <Label htmlFor="email">E-mail</Label>
+        <Input
           id="email"
           type="email"
           onChange={(e) => setEmail(e.target.value)}
-        ></input>
-        <label htmlFor="password">Senha</label>
-        <input
+        ></Input>
+        <Label htmlFor="password">Senha</Label>
+        <Input
           id="password"
           type="password"
           onChange={(e) => setPassword(e.target.value)}
-        ></input>
-        <button type="submit">Cadastrar</button>
-      </form>
+        ></Input>
+        <Button type="submit">Cadastrar</Button>
+      </Form>
 
       <p>Já tem cadastro? <Link to={"/login"}> Entrar </Link></p>
     </SignUp>
@@ -61,9 +61,60 @@ export default function Cadastro() {
 }
 
 const SignUp = styled.div`
- background-color: #595757;
  display: flex;
  flex-direction: column;
  justify-content: center;
  align-items: center;
+
+ a{
+  color:#ffffff
+ }
+
+ p {
+  color:#ffffff;
+  margin-top: 10px;
+ }
+
+`
+
+const Header = styled.h1 `
+  color: #ffffff;
+  font-size: 32px;
+  margin-top: 160px;
+  margin-bottom: 25px;
+`
+
+const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+
+`
+
+const Label = styled.label`
+  font-size: 20px;
+  color: #ffffff;
+`
+
+const Input = styled.input`
+  width: 320px;
+  height: 50px;
+  font-size: 20px;
+  background-color: #dbdbdb;
+  border-radius: 5px;
+  margin:10px 0px;
+  padding-left: 10px;
+  border:none;
+`
+
+const Button = styled.button`
+  width: 332px;
+  height: 40px;
+  border-radius: 5px;
+  border: none;
+  background-color: #72B5A4;
+  color:#ffffff;
+  font-size: 20px;
+  font-weight: 700;
+  margin: 10px 0px;
+
 `
