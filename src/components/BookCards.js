@@ -1,10 +1,13 @@
 import styled from "styled-components";
 import axios from "axios";
 import { useEffect, useState } from "react";
+
 import { useUser } from "../Context/User";
 
 
 export default function Bookcard() {
+//   const { user, useUser } = useUser(undefined);
+
 
     const {user, useUser} = useUser(undefined)
 
@@ -28,6 +31,17 @@ export default function Bookcard() {
               Authorization: `Bearer ${user.token}`,
             },
           };
+
+//   const [books, setBooks] = useState(undefined);
+
+//   useEffect(() => {
+//     const config = {
+//       headers: {
+//         Authorization: `Bearer ${user.token}`,
+//       },
+//     };
+//   }, []);
+
 
       const promise = axios.get("https://livre-se-api.onrender.com/books", config)
       promise.then(resposta => {
