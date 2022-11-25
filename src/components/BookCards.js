@@ -1,14 +1,12 @@
 import styled from "styled-components";
 import axios from "axios";
 import { useEffect, useState } from "react";
-
-
 import { useUser } from "../Context/User";
+
 
 export default function Bookcard() {
 
-
-  const {user, useUser} = useUser(undefined)
+    const {user, useUser} = useUser(undefined)
 
   
     // const [books, setBooks] = useState(undefined);
@@ -20,7 +18,42 @@ export default function Bookcard() {
     //         }
     //     }
     // }, []);
+    const [books, setBooks] = useState(null)
+    
+    
+      
+      useEffect(() => {
+        const config = {
+            headers: {
+              Authorization: `Bearer ${user.token}`,
+            },
+          };
 
+      const promise = axios.get("https://livre-se-api.onrender.com/books", config)
+      promise.then(resposta => {
+          console.log('livros resgatados!')
+          console.log(resposta.data)
+          setBooks(resposta.data)
+      });
+  }, []);
+
+  if (books === null) {
+    return 'carregando...';
+}
+
+   /* return (
+        
+        <BodySubscriptions>
+            <h1>Escolha seu Plano</h1>
+            {planos.map((plano, index) => {
+                    return (
+                        <Plano plano={plano} key={index} />
+                    )
+                }
+                )}
+        </BodySubscriptions>
+    );
+*/
   return (
     <BookCardContainer>
       <BookCard>
