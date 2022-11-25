@@ -3,8 +3,10 @@ import axios from "axios";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import GlobalStyle from "./Assets/Css/GlobalStyle";
+import { useUser } from "./Context/User";
 
 export default function Login() {
+  const { setUser } = useUser()
   const [email, setEmail] = useState(undefined);
   const [password, setPassword] = useState(undefined);
   const navigate = useNavigate();
@@ -22,7 +24,11 @@ export default function Login() {
       body
     );
 
-    promise.then(() => navigate("/home"));
+    promise.then((res) => {
+      navigate("/home")
+      setUser(res.data);
+      console.log(res.data)
+    });
 
     promise.catch((err) => console.log("Deu erro no login"));
   }

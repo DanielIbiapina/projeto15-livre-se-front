@@ -4,6 +4,7 @@ import Login from "./Login";
 import { useState, useNavigate, useEffect } from "react";
 import Home from "./Home";
 import Carrinho from "./Carrinho";
+import UserProvider from "./Context/User";
 
 
 export default function App() {
@@ -44,6 +45,8 @@ console.log(token)
 */
     return(
        //<Contexto.Provider value={{}}>
+
+       <UserProvider>
         <BrowserRouter>
             <Routes>
             <Route path="/"  element={ <Home/> } />
@@ -53,6 +56,7 @@ console.log(token)
            
             </Routes>
         </BrowserRouter>
+        </UserProvider>
         //</Contexto.Provider>
         
     );

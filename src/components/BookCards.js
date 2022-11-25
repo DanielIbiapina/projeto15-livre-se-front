@@ -2,24 +2,20 @@ import styled from "styled-components";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
-
 import { useUser } from "../Context/User";
 
 export default function Bookcard() {
+//   const { user, useUser } = useUser(undefined);
 
+//   const [books, setBooks] = useState(undefined);
 
-  const {user, useUser} = useUser(undefined)
-
-  
-    // const [books, setBooks] = useState(undefined);
-
-    // useEffect(() => {
-    //     const config = {
-    //         headers: {
-    //             Authorization: `Bearer ${user.token}`
-    //         }
-    //     }
-    // }, []);
+//   useEffect(() => {
+//     const config = {
+//       headers: {
+//         Authorization: `Bearer ${user.token}`,
+//       },
+//     };
+//   }, []);
 
   return (
     <BookCardContainer>
