@@ -1,15 +1,17 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Cadastro from "./Cadastro";
 import Login from "./Login";
-import { useState, useNavigate, useEffect } from "react";
+import { useState, useNavigate, useEffect, useContext } from "react";
 import Home from "./Home";
 import Carrinho from "./Carrinho";
 import UserProvider from "./Context/User";
+import Contexto from "./Context/Contexto";
+
 
 
 export default function App() {
-    /*const [token, setToken] = useState(null);
-    const tokenOnLocalStorage = localStorage.getItem("token");
+    const [token, setToken] = useState(null);
+    /*const tokenOnLocalStorage = localStorage.getItem("token");
     const listaSerializada = localStorage.getItem("lista");
     const lista = JSON.parse(listaSerializada);
     const [loginAutoPlanos, setLoginAutoPlanos] = useState(false)
@@ -34,7 +36,7 @@ export default function App() {
 
     
   
-
+*/
     function setAndPersistToken(token) {
 		setToken(token);
 		localStorage.setItem("token", token);
@@ -42,9 +44,9 @@ export default function App() {
     
 
 console.log(token)
-*/
+
     return(
-       //<Contexto.Provider value={{}}>
+       <Contexto.Provider value={{token, setToken, setAndPersistToken}}>
 
        <UserProvider>
         <BrowserRouter>
@@ -57,7 +59,7 @@ console.log(token)
             </Routes>
         </BrowserRouter>
         </UserProvider>
-        //</Contexto.Provider>
+        </Contexto.Provider>
         
     );
     

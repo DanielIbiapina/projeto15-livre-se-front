@@ -1,12 +1,14 @@
 import styled from "styled-components";
 import axios from "axios";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import GlobalStyle from "./Assets/Css/GlobalStyle";
 import { useUser } from "./Context/User";
+import Contexto from "./Context/Contexto";
 
 export default function Login() {
   const { setUser } = useUser()
+  const { setAndPersistToken} = useContext(Contexto);
   const [email, setEmail] = useState(undefined);
   const [password, setPassword] = useState(undefined);
   const navigate = useNavigate();
@@ -27,6 +29,7 @@ export default function Login() {
     promise.then((res) => {
       navigate("/home")
       setUser(res.data);
+      setAndPersistToken(res.data.token);
       console.log(res.data)
     });
 

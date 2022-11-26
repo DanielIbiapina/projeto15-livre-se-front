@@ -1,109 +1,72 @@
 import styled from "styled-components";
 import axios from "axios";
-import { useEffect, useState } from "react";
-
+import { useEffect, useState, useContext } from "react";
+import Contexto from "../Context/Contexto";
 import { useUser } from "../Context/User";
 
 
 export default function Bookcard() {
-//   const { user, useUser } = useUser(undefined);
 
-
-    const {user, useUser} = useUser(undefined)
-
-  
-    // const [books, setBooks] = useState(undefined);
-
-    // useEffect(() => {
-    //     const config = {
-    //         headers: {
-    //             Authorization: `Bearer ${user.token}`
-    //         }
-    //     }
-    // }, []);
     const [books, setBooks] = useState(null)
-    
-    
-      
-      useEffect(() => {
+    const { setAndPersistToken, token, setToken } = useContext(Contexto);
+
+
+    useEffect(() => {
+
         const config = {
             headers: {
-              Authorization: `Bearer ${user.token}`,
+                Authorization: `Bearer ${token}`,
             },
-          };
+        };
+        const promise = axios.get("https://livre-se-api.onrender.com/books", config)
+        promise.then(resposta => {
+            console.log('livros resgatados!')
+            console.log(resposta.data)
+            setBooks(resposta.data)
+        });
+    }, []);
 
-//   const [books, setBooks] = useState(undefined);
+    if (books ===  null) {
+        return 'carregando...';
+    }
 
-//   useEffect(() => {
-//     const config = {
-//       headers: {
-//         Authorization: `Bearer ${user.token}`,
-//       },
-//     };
-//   }, []);
-
-
-      const promise = axios.get("https://livre-se-api.onrender.com/books", config)
-      promise.then(resposta => {
-          console.log('livros resgatados!')
-          console.log(resposta.data)
-          setBooks(resposta.data)
-      });
-  }, []);
-
-  if (books === null) {
-    return 'carregando...';
-}
-
-   /* return (
-        
-        <BodySubscriptions>
-            <h1>Escolha seu Plano</h1>
-            {planos.map((plano, index) => {
-                    return (
-                        <Plano plano={plano} key={index} />
-                    )
-                }
-                )}
-        </BodySubscriptions>
+    /* return (
+         
+         <BodySubscriptions>
+             <h1>Escolha seu Plano</h1>
+             {planos.map((plano, index) => {
+                     return (
+                         <Plano plano={plano} key={index} />
+                     )
+                 }
+                 )}
+         </BodySubscriptions>
+     );
+ */
+    return (
+        <BookCardContainer>
+            {books.books.map((book, index) => {
+                return (
+                    <BookCard>
+                        <BookImage>
+                            {" "}
+                            <img src= {book.image} />{" "}
+                        </BookImage>
+                        <BookName> {book.name}</BookName>
+                        <BookPrice> R$ {book.price}</BookPrice>
+                        <ButtonComprar>Comprar</ButtonComprar>
+                    </BookCard>
+                )
+            }
+            )}
+        </BookCardContainer>
     );
-*/
-  return (
-    <BookCardContainer>
-      <BookCard>
-        <BookImage>
-          {" "}
-          <img src="https://i.zst.com.br/thumbs/12/e/14/1458554473.jpg" />{" "}
-        </BookImage>
-        <BookName> Game of Thrones</BookName>
-        <BookPrice> R$ 50,00</BookPrice>
-        <ButtonComprar>Comprar</ButtonComprar>
-      </BookCard>
-      <BookCard>
-        <BookImage>
-          {" "}
-          <img src="https://i.zst.com.br/thumbs/12/e/14/1458554473.jpg" />{" "}
-        </BookImage>
-        <BookName> Game of Thrones</BookName>
-        <BookPrice> R$ 50,00</BookPrice>
-        <ButtonComprar>Comprar</ButtonComprar>
-      </BookCard>
-      <BookCard>
-        <BookImage>
-          {" "}
-          <img src="https://i.zst.com.br/thumbs/12/e/14/1458554473.jpg" />{" "}
-        </BookImage>
-        <BookName> Game of Thrones</BookName>
-        <BookPrice> R$ 50,00</BookPrice>
-        <ButtonComprar>Comprar</ButtonComprar>
-      </BookCard>
-    </BookCardContainer>
-  );
 }
 
 const BookCard = styled.div`
   box-sizing: border-box;
   width: 174px;
+  height: 500px;
   margin-left: 8px;
   border-radius: 5px;
   padding: 8px;
@@ -112,6 +75,9 @@ const BookCard = styled.div`
 const BookImage = styled.div`
   box-sizing: border-box;
   border-radius: 5px;
+  background-color: aliceblue;
+  width: 174px;
+  height: 280px;
   img {
     width: 100%;
     border-radius: 5px;

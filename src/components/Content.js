@@ -29,7 +29,8 @@ const Session = styled.div`
 box-sizing: border-box;
 width: 100%;
 height: 350px;
-margin-top: 20px;
+margin-top: 100px;
+
 
 `
 const SessionName = styled.div`
