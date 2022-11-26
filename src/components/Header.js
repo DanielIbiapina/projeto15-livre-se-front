@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 export default function Header(props) {
@@ -8,9 +9,9 @@ export default function Header(props) {
         <HeaderContainer>
             <IconContainer>
                 <Icon> <ion-icon name="menu-outline"></ion-icon></Icon>
-                <Logo>SEBOOK</Logo>
+                <Logo>LIVRE-SE</Logo>
                 <MiniContainer>
-                    <Icon><ion-icon name="person-outline"></ion-icon></Icon>
+                    <Link to="/login"><Icon><ion-icon name="person-outline"></ion-icon></Icon></Link>
                     <Icon onClick={() => setAtivado(!ativado)}><ion-icon name="cart-outline"></ion-icon></Icon>
                 </MiniContainer>
             </IconContainer>
@@ -41,6 +42,11 @@ display:  flex;
 justify-content: space-between;
 align-items: center;
 
+a {
+    text-decoration: none;
+    color:#000000
+}
+
 `
 const MiniContainer = styled.div`
 display: flex;
@@ -54,7 +60,7 @@ box-sizing: border-box;
 width: 303px;
 height: 45px;
 margin-bottom: 16px;
-background: #FFFFFF;
+background: #dbdbdb;
 border: 1px solid #D5D5D5;
 border-radius: 5px;
 padding-left: 5px;
