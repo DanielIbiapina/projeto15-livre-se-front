@@ -8,6 +8,32 @@ import { useUser } from "../Context/User";
 
 export default function Bookcard(props) {
   const books = props.books;
+  const { token, setToken, setAndPersistToken, setBookCarrinho, bookCarrinho, valorTotal, setValorTotal } = useContext(Contexto);
+
+  
+  function addCarrinho(b){
+    const novoArray = [...bookCarrinho, b]
+    setBookCarrinho(novoArray)
+    const saldo = [Number(valorTotal) + Number(b.price)]
+    setValorTotal(saldo)
+    console.log(b)
+    console.log(b.price)
+
+    const requisicao = axios.post("http://localhost:5000/carrinho", {
+        title: b.title,
+        image: b.image,
+        price: b.price,
+    })
+        
+        requisicao.then((res) => {
+            console.log('livro add ao carrinho')
+            console.log(res.data)
+
+        });
+
+        requisicao.catch((err) => console.log(err.response.data));
+
+  }
 
   return (
     <BookCardContainer>
@@ -19,7 +45,7 @@ export default function Bookcard(props) {
           </BookImage>
           <BookName> {b.title}</BookName>
           <BookPrice> R$ {b.price}</BookPrice>
-          <ButtonComprar>Comprar</ButtonComprar>
+          <ButtonComprar onClick={() => addCarrinho(b)}>Comprar</ButtonComprar>
         </BookCard>
       ))}
     </BookCardContainer>
@@ -74,5 +100,5 @@ const ButtonComprar = styled.div`
 const BookCardContainer = styled.div`
   display: flex;
   overflow-x: scroll;
-
+ 
 `;

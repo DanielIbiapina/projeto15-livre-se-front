@@ -47,6 +47,7 @@ const Session = styled.div`
   width: 100%;
   height: 350px;
   margin-top: 20px;
+  margin-bottom: 100px;
 `;
 const SessionName = styled.div`
   font-size: 20px;
