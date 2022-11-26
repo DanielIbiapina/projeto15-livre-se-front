@@ -5,62 +5,26 @@ import Contexto from "../Context/Contexto";
 import { useUser } from "../Context/User";
 
 
-export default function Bookcard() {
 
-    const [books, setBooks] = useState(null)
-    const { setAndPersistToken, token, setToken } = useContext(Contexto);
+export default function Bookcard(props) {
+  const books = props.books;
 
+  return (
+    <BookCardContainer>
+      {books.map((b) => (
+        <BookCard>
+          <BookImage>
+            {" "}
+            <img src={b.image} alt="poster do filme"/>{" "}
+          </BookImage>
+          <BookName> {b.title}</BookName>
+          <BookPrice> R$ {b.price}</BookPrice>
+          <ButtonComprar>Comprar</ButtonComprar>
+        </BookCard>
+      ))}
+    </BookCardContainer>
+  );
 
-    useEffect(() => {
-
-        const config = {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        };
-        const promise = axios.get("https://livre-se-api.onrender.com/books", config)
-        promise.then(resposta => {
-            console.log('livros resgatados!')
-            console.log(resposta.data)
-            setBooks(resposta.data)
-        });
-    }, []);
-
-    if (books ===  null) {
-        return 'carregando...';
-    }
-
-    /* return (
-         
-         <BodySubscriptions>
-             <h1>Escolha seu Plano</h1>
-             {planos.map((plano, index) => {
-                     return (
-                         <Plano plano={plano} key={index} />
-                     )
-                 }
-                 )}
-         </BodySubscriptions>
-     );
- */
-    return (
-        <BookCardContainer>
-            {books.books.map((book, index) => {
-                return (
-                    <BookCard>
-                        <BookImage>
-                            {" "}
-                            <img src= {book.image} />{" "}
-                        </BookImage>
-                        <BookName> {book.name}</BookName>
-                        <BookPrice> R$ {book.price}</BookPrice>
-                        <ButtonComprar>Comprar</ButtonComprar>
-                    </BookCard>
-                )
-            }
-            )}
-        </BookCardContainer>
-    );
 }
 
 const BookCard = styled.div`
@@ -79,7 +43,8 @@ const BookImage = styled.div`
   width: 174px;
   height: 280px;
   img {
-    width: 100%;
+    width: 150px;
+    height: 200px;
     border-radius: 5px;
   }
 `;
@@ -109,4 +74,5 @@ const ButtonComprar = styled.div`
 const BookCardContainer = styled.div`
   display: flex;
   overflow-x: scroll;
+
 `;
