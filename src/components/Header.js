@@ -8,7 +8,7 @@ export default function Header(props) {
         <HeaderContainer>
             <IconContainer>
                 <Icon> <ion-icon name="menu-outline"></ion-icon></Icon>
-                <Logo>SEBOOK</Logo>
+                <Logo>LIVRE-SE</Logo>
                 <MiniContainer>
                     <Icon><ion-icon name="person-outline"></ion-icon></Icon>
                     <Icon onClick={() => setAtivado(!ativado)}><ion-icon name="cart-outline"></ion-icon></Icon>

@@ -4,48 +4,22 @@ import { useEffect, useState } from "react";
 
 import { useUser } from "../Context/User";
 
-export default function Bookcard() {
-//   const { user, useUser } = useUser(undefined);
-
-//   const [books, setBooks] = useState(undefined);
-
-//   useEffect(() => {
-//     const config = {
-//       headers: {
-//         Authorization: `Bearer ${user.token}`,
-//       },
-//     };
-//   }, []);
+export default function Bookcard(props) {
+  const books = props.books;
 
   return (
     <BookCardContainer>
-      <BookCard>
-        <BookImage>
-          {" "}
-          <img src="https://i.zst.com.br/thumbs/12/e/14/1458554473.jpg" />{" "}
-        </BookImage>
-        <BookName> Game of Thrones</BookName>
-        <BookPrice> R$ 50,00</BookPrice>
-        <ButtonComprar>Comprar</ButtonComprar>
-      </BookCard>
-      <BookCard>
-        <BookImage>
-          {" "}
-          <img src="https://i.zst.com.br/thumbs/12/e/14/1458554473.jpg" />{" "}
-        </BookImage>
-        <BookName> Game of Thrones</BookName>
-        <BookPrice> R$ 50,00</BookPrice>
-        <ButtonComprar>Comprar</ButtonComprar>
-      </BookCard>
-      <BookCard>
-        <BookImage>
-          {" "}
-          <img src="https://i.zst.com.br/thumbs/12/e/14/1458554473.jpg" />{" "}
-        </BookImage>
-        <BookName> Game of Thrones</BookName>
-        <BookPrice> R$ 50,00</BookPrice>
-        <ButtonComprar>Comprar</ButtonComprar>
-      </BookCard>
+      {books.map((b) => (
+        <BookCard>
+          <BookImage>
+            {" "}
+            <img src={b.image} alt="poster do filme"/>{" "}
+          </BookImage>
+          <BookName> {b.title}</BookName>
+          <BookPrice> R$ {b.price}</BookPrice>
+          <ButtonComprar>Comprar</ButtonComprar>
+        </BookCard>
+      ))}
     </BookCardContainer>
   );
 }
@@ -62,7 +36,8 @@ const BookImage = styled.div`
   box-sizing: border-box;
   border-radius: 5px;
   img {
-    width: 100%;
+    width: 150px;
+    height: 200px;
     border-radius: 5px;
   }
 `;
@@ -92,4 +67,5 @@ const ButtonComprar = styled.div`
 const BookCardContainer = styled.div`
   display: flex;
   overflow-x: scroll;
+
 `;
