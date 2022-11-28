@@ -9,17 +9,6 @@ export default function ResumoCompra() {
   const { valorTotal, setValorTotal } = useContext(Contexto);
   let saldo = 0;
 
-
-  function somarSaldo(books) {
-
-    books.map((book) => {
-      console.log(book.price)
-      saldo = saldo + Number(book.price)
-      console.log(saldo)
-      setValorTotal(saldo)
-    })
-  }
-
   useEffect(() => {
     const promise = axios.get("https://livre-se-api.onrender.com/carrinho")
 
@@ -36,8 +25,34 @@ export default function ResumoCompra() {
   if (booksCarrinho === "") {
     return 'carregando...'
   }
+
+  //functions:
+
+  function somarSaldo(books) {
+    books.map((book) => {
+      console.log(book.price)
+      saldo = saldo + Number(book.price)
+      console.log(saldo)
+      setValorTotal(saldo)
+    })
+  }
+
+  function deleteBook(id) {
+    if (!window.confirm("Você tem certeza que deseja deletar este livro?")) {
+      return;
+    }
+
+    const promise = axios.delete(`https://livre-se-api.onrender.com/carrinho/${id}`)
+
+    promise.then((res) => {
+      console.log('livro deletado do carrinho')
+    });
+
+    promise.catch((err) => console.log(err.response.data));
+  }
+
   console.log(booksCarrinho)
-  console.log(valorTotal.toFixed(2))
+  
   return (
     <>
       <Header>
@@ -54,7 +69,9 @@ export default function ResumoCompra() {
               <BookName> {b.title}</BookName>
               <BookPrice> R$ {b.price.toFixed(2)}</BookPrice>
             </MiniContainer>
-            <IconDelete> <ion-icon name="trash"></ion-icon> </IconDelete>
+            <IconDelete onClick={() => deleteBook(b._id)}> 
+              <ion-icon name="trash"></ion-icon> 
+            </IconDelete>
           </BookCard>
         ))}
         Total: R$ {valorTotal.toFixed(2)}
