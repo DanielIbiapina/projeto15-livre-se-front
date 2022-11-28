@@ -1,20 +1,44 @@
 import styled from "styled-components";
 import Contexto from "./Context/Contexto";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import Bookcard from "./components/BookCards";
 import { Navigate, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 export default function Carrinho(props) {
     const { ativado, setAtivado } = props
-    const { valorTotal, setValorTotal, bookCarrinho } = useContext(Contexto);
+    const { valorTotal, setValorTotal, bookCarrinho, setBookCarrinho } = useContext(Contexto);
     const navigate = useNavigate()
     console.log(bookCarrinho)
     console.log(valorTotal)
 
+    let saldo = 0;
+    useEffect(() => {
+        const promise = axios.get("https://livre-se-api.onrender.com/carrinho")
+    
+        promise.then((res) => {
+          console.log('livro do carrinho resgatado')
+          console.log(res.data)
+          setBookCarrinho(res.data)
+          somarSaldo(res.data)
+          setValorTotal(saldo)  
+        });
+    
+        promise.catch((err) => console.log(err.response.data));
+      }, []);
+      
     function finalizarCompra() {
         console.log('compra finalizada')
         navigate("/resumocompra")
     }
+    function somarSaldo(books) {
+        books.map((book) => {
+          console.log(book.price)
+          saldo = saldo + Number(book.price)
+          console.log(saldo)
+          setValorTotal(saldo)
+        })
+      }
 
     return (
         <>

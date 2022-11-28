@@ -6,8 +6,9 @@ import { Link } from "react-router-dom";
 
 export default function ResumoCompra() {
   const [booksCarrinho, setBooksCarrinho] = useState("")
-  const { valorTotal, setValorTotal } = useContext(Contexto);
-  let saldo = 0;
+  const [att, setAtt] = useState(false)
+  const { token, valorTotal, setValorTotal, saldo } = useContext(Contexto);
+  
 
   useEffect(() => {
     const promise = axios.get("https://livre-se-api.onrender.com/carrinho")
@@ -20,7 +21,7 @@ export default function ResumoCompra() {
     });
 
     promise.catch((err) => console.log(err.response.data));
-  }, []);
+  }, [att]);
 
   if (booksCarrinho === "") {
     return 'carregando...'
@@ -46,12 +47,21 @@ export default function ResumoCompra() {
 
     promise.then((res) => {
       console.log('livro deletado do carrinho')
+      setAtt(!att)
     });
 
     promise.catch((err) => console.log(err.response.data));
   }
 
+  function alertar() {
+    if(token){
+      alert("Compra efetuada com sucesso! Volte a página inicial e compre mais livros!")
+    } else {
+      alert("Faça o login antes de efetuar sua compra!")
+    }
+  }
   console.log(booksCarrinho)
+  console.log(token)
   
   return (
     <>
@@ -77,8 +87,8 @@ export default function ResumoCompra() {
         Total: R$ {valorTotal.toFixed(2)}
         <p> <Link to={"/home"}> Escolher mais produtos </Link></p>
       </Main>
-      <Link to={"/login"} >
-        <Footer>
+      <Link to={token  ? "/home" : "/login"} >
+        <Footer onClick={alertar}>
           Fechar pedido
         </Footer>
       </Link>

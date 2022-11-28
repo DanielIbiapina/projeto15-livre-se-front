@@ -15,6 +15,7 @@ export default function App() {
     const [token, setToken] = useState(null);
     const [bookCarrinho, setBookCarrinho] = useState([])
     const [valorTotal, setValorTotal] = useState(0)
+    let saldo = 0;
     
     function setAndPersistToken(token) {
 		setToken(token);
@@ -25,7 +26,7 @@ export default function App() {
 console.log(token)
 
     return(
-       <Contexto.Provider value={{token, setToken, setAndPersistToken, bookCarrinho, setBookCarrinho, valorTotal, setValorTotal}}>
+       <Contexto.Provider value={{token, setToken, setAndPersistToken, bookCarrinho, setBookCarrinho, valorTotal, setValorTotal, saldo}}>
        <UserProvider>
         <BrowserRouter>
             <Routes>
