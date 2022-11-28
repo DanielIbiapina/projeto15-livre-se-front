@@ -15,32 +15,7 @@ export default function App() {
     const [token, setToken] = useState(null);
     const [bookCarrinho, setBookCarrinho] = useState([])
     const [valorTotal, setValorTotal] = useState(0)
-    /*const tokenOnLocalStorage = localStorage.getItem("token");
-    const listaSerializada = localStorage.getItem("lista");
-    const lista = JSON.parse(listaSerializada);
-    const [loginAutoPlanos, setLoginAutoPlanos] = useState(false)
-    const [loginAutoHome, setLoginAutoHome] = useState(false)
-    console.log(lista)
-    console.log(tokenOnLocalStorage)
-
-      
-      useEffect(() => {
-        setLoginAutoHome(false)
-        setLoginAutoPlanos(false)
-        if(tokenOnLocalStorage != null && lista.membership == null){
-        
-            setLoginAutoPlanos(true)
-        }
-        if(tokenOnLocalStorage != null && lista.membership != null){
-            setLoginAutoHome(true)
-        }
-        
-  }, []);
-
-
     
-  
-*/
     function setAndPersistToken(token) {
 		setToken(token);
 		localStorage.setItem("token", token);
@@ -51,7 +26,6 @@ console.log(token)
 
     return(
        <Contexto.Provider value={{token, setToken, setAndPersistToken, bookCarrinho, setBookCarrinho, valorTotal, setValorTotal}}>
-
        <UserProvider>
         <BrowserRouter>
             <Routes>
@@ -60,8 +34,6 @@ console.log(token)
             <Route path="/login" element={<Login />} />
             <Route path="/home" element={<Home/>} />
             <Route path="/resumocompra" element={<ResumoCompra/>} />
-            
-           
             </Routes>
         </BrowserRouter>
         </UserProvider>

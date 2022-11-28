@@ -5,51 +5,68 @@ import Contexto from "./Context/Contexto";
 import { Link } from "react-router-dom";
 
 export default function ResumoCompra() {
-    const [booksCarrinho, setBooksCarrinho] = useState("")
-    const { valorTotal } = useContext(Contexto);
+  const [booksCarrinho, setBooksCarrinho] = useState("")
+  const { valorTotal, setValorTotal } = useContext(Contexto);
+  let saldo = 0;
 
-    useEffect(() => {
-    const promise = axios.get("http://localhost:5000/carrinho")
-        
-        promise.then((res) => {
-            console.log('livro do carrinho resgatado')
-            console.log(res.data)
-            setBooksCarrinho(res.data)
-        });
 
-        promise.catch((err) => console.log(err.response.data));
-    }, []);
+  function somarSaldo(books) {
 
-    if(booksCarrinho === ""){
-        return 'carregando...'
-    }
-console.log(booksCarrinho)
-    return(
-        <>
+    books.map((book) => {
+      console.log(book.price)
+      saldo = saldo + Number(book.price)
+      console.log(saldo)
+      setValorTotal(saldo)
+    })
+  }
+
+  useEffect(() => {
+    const promise = axios.get("https://livre-se-api.onrender.com/carrinho")
+
+    promise.then((res) => {
+      console.log('livro do carrinho resgatado')
+      console.log(res.data)
+      setBooksCarrinho(res.data)
+      somarSaldo(res.data)
+    });
+
+    promise.catch((err) => console.log(err.response.data));
+  }, []);
+
+  if (booksCarrinho === "") {
+    return 'carregando...'
+  }
+  console.log(booksCarrinho)
+  console.log(valorTotal.toFixed(2))
+  return (
+    <>
       <Header>
-        livre-se
+        LIVRE-SE
       </Header>
       <Main>
-      {booksCarrinho.map((b) => (
-        <BookCard>
-          <BookImage>
-            {" "}
-            <img src={b.image} alt="poster do filme"/>{" "}
-          </BookImage>
-          <div>
-          <BookName> {b.title}</BookName>
-          <BookPrice> R$ {b.price}</BookPrice>
-          </div>
-        </BookCard>
-      ))}
-      Total: R$ {valorTotal}
-      <p> <Link to={"/home"}> Escolher mais produtos </Link></p>
+        {booksCarrinho.map((b) => (
+          <BookCard>
+            <BookImage>
+              {" "}
+              <img src={b.image} alt="poster do filme" />{" "}
+            </BookImage>
+            <MiniContainer>
+              <BookName> {b.title}</BookName>
+              <BookPrice> R$ {b.price.toFixed(2)}</BookPrice>
+            </MiniContainer>
+            <IconDelete> <ion-icon name="trash"></ion-icon> </IconDelete>
+          </BookCard>
+        ))}
+        Total: R$ {valorTotal.toFixed(2)}
+        <p> <Link to={"/home"}> Escolher mais produtos </Link></p>
       </Main>
-      <Footer>
-        Fechar pedido
-      </Footer>
+      <Link to={"/login"} >
+        <Footer>
+          Fechar pedido
+        </Footer>
+      </Link>
     </>
-    );
+  );
 }
 
 
@@ -60,11 +77,22 @@ left: 0;
 width: 100%;
 height: 80px;
 background-color: #595757;
+display: flex;
+justify-content: center;
+align-items: center;
+font-size: 32px;
+font-family: 'Nerko One', cursive;
+z-index: 3;
 `
 
 const Main = styled.div`
 margin-top: 80px;
-margin-bottom: 80px;
+margin-bottom: 95px;
+text-align: center;
+
+a{
+  color: #000000;
+}
 `
 const BookCard = styled.div`
   box-sizing: border-box;
@@ -76,14 +104,14 @@ const BookCard = styled.div`
   padding: 8px;
   flex-shrink: 0;
   display: flex;
-  background-color: red;
+  justify-content: space-between;
 `;
 const BookImage = styled.div`
   box-sizing: border-box;
   border-radius: 5px;
-  background-color: aliceblue;
   width: 174px;
   height: 200px;
+  box-shadow: 10px 5px 5px rgba(0, 0, 0, 0.6);
   img {
     width: 150px;
     height: 200px;
@@ -93,14 +121,33 @@ const BookImage = styled.div`
 const BookName = styled.div`
   box-sizing: border-box;
   margin-bottom: 4px;
-  height: 40px;
+  width: 80px;
+  text-align: start;
 `;
-const BookPrice = styled.div``;
-const Footer= styled.div`
+const BookPrice = styled.div`
+font-weight: 550;
+`;
+const MiniContainer = styled.div`
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+`
+
+const Footer = styled.div`
 position: fixed;
 bottom: 0;
 left: 0;
 width: 100%;
 height: 80px;
 background-color: #595757;
+display: flex;
+justify-content: center;
+align-items: center;
+font-size: 26px;
+color: #000000;
+box-shadow: -2px -2px 2px 1px rgba(0, 0, 0, 0.2);
+`;
+
+const IconDelete = styled.div`
+font-size: 30px;
 `

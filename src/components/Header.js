@@ -8,11 +8,11 @@ export default function Header(props) {
     return (
         <HeaderContainer>
             <IconContainer>
-                <Icon> <ion-icon name="menu-outline"></ion-icon></Icon>
+                <Icon> <ion-icon name="menu"></ion-icon></Icon>
                 <Logo>LIVRE-SE</Logo>
                 <MiniContainer>
-                    <Link to="/login"><Icon><ion-icon name="person-outline"></ion-icon></Icon></Link>
-                    <Icon onClick={() => setAtivado(!ativado)}><ion-icon name="cart-outline"></ion-icon></Icon>
+                    <Link to="/login"><Icon><ion-icon name="person"></ion-icon></Icon></Link>
+                    <Icon onClick={() => setAtivado(!ativado)}><ion-icon name="cart"></ion-icon></Icon>
                 </MiniContainer>
             </IconContainer>
             <InputSearchBar
@@ -74,4 +74,7 @@ padding-left: 5px;
 
 }
 `
-const Logo = styled.div``
+const Logo = styled.div`
+font-size: 32px;
+font-family: 'Nerko One', cursive;
+`

@@ -19,7 +19,7 @@ export default function Bookcard(props) {
     console.log(b)
     console.log(b.price)
 
-    const requisicao = axios.post("http://localhost:5000/carrinho", {
+    const requisicao = axios.post("https://livre-se-api.onrender.com/carrinho", {
         title: b.title,
         image: b.image,
         price: b.price,
